@@ -1,0 +1,20 @@
+[
+  {
+    "Id": 1,
+    "name": "doremon",
+    "category": "Truyện tranh",
+    "author": "abc",
+    "price": 12000.0,
+    "description": "abc",
+    "quantity": 10
+  },
+  {
+    "Id": 2,
+    "name": "Conan",
+    "category": "Truyện trinh thám",
+    "author": "abc",
+    "price": 20000.0,
+    "description": "abc",
+    "quantity": 10
+  }
+]
