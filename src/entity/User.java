@@ -23,6 +23,13 @@ public class User {
         this.address = address;
         this.role = role;
     }
+    public User(int id, String email, String name, String phone, String address) {
+        this.id = id;
+        this.email = email;
+        this.name = name;
+        this.phone = phone;
+        this.address = address;
+    }
 
     public int getId() {
         return id;

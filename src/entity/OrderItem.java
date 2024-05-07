@@ -5,19 +5,29 @@ import java.util.Date;
 import java.util.List;
 
 public class OrderItem {
+    private int id;
     private User user;
-    private List<Product> products;
+    private List<Order> orders;
+    private String orderTime;
     private double intoMoney;
-    private LocalDateTime orderTime;
     private String status;
     public OrderItem(){}
 
-    public OrderItem(User user, List<Product> products, double intoMoney, LocalDateTime orderTime, String status) {
+    public OrderItem(int id, User user, List<Order> orders, String orderTime, double intoMoney, String status) {
+        this.id = id;
         this.user = user;
-        this.products = products;
-        this.intoMoney = intoMoney;
+        this.orders = orders;
         this.orderTime = orderTime;
+        this.intoMoney = intoMoney;
         this.status = status;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public User getUser() {
@@ -28,12 +38,20 @@ public class OrderItem {
         this.user = user;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public List<Order> getOrders() {
+        return orders;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
+    public String getOrderTime() {
+        return orderTime;
+    }
+
+    public void setOrderTime(String orderTime) {
+        this.orderTime = orderTime;
     }
 
     public double getIntoMoney() {
@@ -42,14 +60,6 @@ public class OrderItem {
 
     public void setIntoMoney(double intoMoney) {
         this.intoMoney = intoMoney;
-    }
-
-    public LocalDateTime getOrderTime() {
-        return orderTime;
-    }
-
-    public void setOrderTime(LocalDateTime orderTime) {
-        this.orderTime = orderTime;
     }
 
     public String getStatus() {
@@ -63,10 +73,11 @@ public class OrderItem {
     @Override
     public String toString() {
         return "OrderItem{" +
-                "user=" + user +
-                ", products=" + products +
+                "id=" + id +
+                ", user=" + user +
+                ", orders=" + orders +
+                ", orderTime='" + orderTime + '\'' +
                 ", intoMoney=" + intoMoney +
-                ", orderTime=" + orderTime +
                 ", status='" + status + '\'' +
                 '}';
     }

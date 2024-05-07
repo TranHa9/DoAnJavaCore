@@ -1,0 +1,79 @@
+[
+  {
+    "id": 1,
+    "user": {
+      "id": 2,
+      "email": "test@gmail.com",
+      "name": "Hà",
+      "phone": "0912345678",
+      "address": "Hn"
+    },
+    "orders": [
+      {
+        "id": 1,
+        "productId": 1,
+        "name": "doremon",
+        "Author": "abc",
+        "quantity": 1,
+        "price": 12000.0
+      },
+      {
+        "id": 2,
+        "productId": 2,
+        "name": "Conan",
+        "Author": "abc",
+        "quantity": 2,
+        "price": 20000.0
+      }
+    ],
+    "orderTime": "07/05/24 12:42",
+    "intoMoney": 52000.0,
+    "status": "Đang giao"
+  },
+  {
+    "id": 2,
+    "user": {
+      "id": 3,
+      "email": "test@gmail.com",
+      "name": "Test",
+      "phone": "0912345678",
+      "address": "Hà Nội"
+    },
+    "orders": [
+      {
+        "id": 1,
+        "productId": 1,
+        "name": "Doremon",
+        "Author": "abc",
+        "quantity": 1,
+        "price": 12000.0
+      }
+    ],
+    "orderTime": "07/05/24 18:02",
+    "intoMoney": 12000.0,
+    "status": "Đã hủy"
+  },
+  {
+    "id": 3,
+    "user": {
+      "id": 3,
+      "email": "test@gmail.com",
+      "name": "Test",
+      "phone": "0912345678",
+      "address": "Hà Nội"
+    },
+    "orders": [
+      {
+        "id": 1,
+        "productId": 2,
+        "name": "Conan",
+        "Author": "abc",
+        "quantity": 1,
+        "price": 20000.0
+      }
+    ],
+    "orderTime": "07/05/24 18:12",
+    "intoMoney": 20000.0,
+    "status": "Chờ xác nhận"
+  }
+]

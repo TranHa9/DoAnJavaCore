@@ -1,7 +1,7 @@
 [
   {
     "Id": 1,
-    "name": "doremon",
+    "name": "Doremon",
     "category": "Truyện tranh",
     "author": "abc",
     "price": 12000.0,
@@ -11,10 +11,37 @@
   {
     "Id": 2,
     "name": "Conan",
-    "category": "Truyện trinh thám",
+    "category": "Trinh thám",
     "author": "abc",
     "price": 20000.0,
     "description": "abc",
     "quantity": 10
+  },
+  {
+    "Id": 3,
+    "name": "Đạo tình",
+    "category": "Tiểu thuyết",
+    "author": "Cố Mạn",
+    "price": 50000.0,
+    "description": "Sách hay mua liền tay",
+    "quantity": 20
+  },
+  {
+    "Id": 4,
+    "name": "Pháp y tần Minh",
+    "category": "Trinh thám",
+    "author": "abc",
+    "price": 70000.0,
+    "description": "Phá án hấp dẫn",
+    "quantity": 40
+  },
+  {
+    "Id": 7,
+    "name": "Giari tích",
+    "category": "Tài liệu",
+    "author": "abc",
+    "price": 20000.0,
+    "description": "Các bài toán nâng cao",
+    "quantity": 20
   }
 ]

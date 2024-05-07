@@ -1,6 +1,7 @@
 package view;
 
 import entity.User;
+import service.OrderSerivce;
 import service.UserService;
 
 import java.util.InputMismatchException;
@@ -9,6 +10,9 @@ import java.util.Scanner;
 public class Menu {
     private final UserService userService = new UserService();
     private final AdminMenu adminMenu = new AdminMenu();
+    private final UserMenu userMenu = new UserMenu();
+    private final OrderSerivce orderSerivce = new OrderSerivce();
+    private final Scanner scanner = new Scanner(System.in);
     public void showMenu() {
         int option = 0;
         boolean isQuit = false;
@@ -28,20 +32,25 @@ public class Menu {
                     break;
                 } catch (InputMismatchException ex) {
                     System.out.print("Lựa chọn phải là một số nguyên, vui lòng nhập lại: ");
+                    scanner.nextLine();
                 }
             }
             switch (option) {
                 case 1:
                     User user = userService.login();
-                    if (user.getRole().equals(User.Role.USER)) {
-                        //userMenu.showUserMenu();
-                        break;
-                    } else if(user.getRole().equals(User.Role.ADMIN)) {
-                        adminMenu.showAdminMenu();
-                        break;
+                    if(user != null) {
+                        if (user.getRole().equals(User.Role.USER)) {
+                            Main.loggedInUser = user;
+                            userMenu.showMenuUser();
+                            break;
+                        } else if (user.getRole().equals(User.Role.ADMIN)){
+                            adminMenu.showAdminMenu();
+                            break;
+                        }
                     }
+                    break;
                 case 2:
-                    userService.createAccount();
+                    userService.register();
                     break;
                 case 3:
                     isQuit = true;

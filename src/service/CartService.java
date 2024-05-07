@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import entity.Cart;
 import entity.Order;
+import entity.OrderItem;
 import entity.Product;
 
 import java.io.IOException;
@@ -63,7 +64,7 @@ public class CartService {
         return new ArrayList<>();
     }
 
-    private List<Order> getOderFromJsonFile() {
+    public List<Order> getOderFromJsonFile() {
         try {
             Gson gson = new Gson();
             Reader reader = Files.newBufferedReader(Paths.get(FILE_ORDER));
@@ -75,7 +76,7 @@ public class CartService {
         }
         return new ArrayList<>();
     }
-
+    //Kiểm tra sản phẩm có tồn tại trong giỏ
     private int getOderIndex(List<Order> orders, int getProductId) {
         // Duyệt qua danh sách giỏ hành và tìm vị trí của sản phẩm theo id
         for (int i = 0; i < orders.size(); i++) {
@@ -98,11 +99,9 @@ public class CartService {
                     existingOrders.set(index, order);
                 } else {
                     // Nếu không tồn tại, thêm sản phẩm mới sản phẩm vào giỏ
-                    existingOrders.addAll(orders);
+                    existingOrders.add(order);
                 }
             }
-
-            //existingOrders.addAll(orders);
             Writer writer = Files.newBufferedWriter(Paths.get(FILE_ORDER));
             gson.toJson(existingOrders, writer);
             writer.close();
@@ -119,12 +118,23 @@ public class CartService {
         }
         return null;
     }
-
+    public Order findProductById1(int productId) {
+        List<Order> orders = getOderFromJsonFile();
+        for (Order order : orders) {
+            if (order.getProductId() == productId) {
+                return order;
+            }
+        }
+        return null;
+    }
+    //Kiểm tra số lượng sản phẩm muốn mua có vượt quá số lượng kho
     public boolean checkQuantity(Product product, int quantity) {
         return product != null && product.getQuantity() >= quantity;
     }
+
+    //Thêm sản phẩm vào giỏ hàng
     public void addCartItem() {
-        System.out.println("Vui lòng nhập id sản phẩm bạn muốn mua:");
+        System.out.println("Vui lòng nhập id sản phẩm:");
         int productId;
         while (true) {
             try {
@@ -132,12 +142,18 @@ public class CartService {
                 break; // Thoát khỏi vòng lặp nếu giá trị được nhập vào là số nguyên hợp lệ
             } catch (InputMismatchException e) {
                 System.out.println("Giá trị bạn vừa nhập không phải là một số nguyên. Vui lòng nhập lại.");
+                scanner.nextLine();
             }
         }
         Product product = findProductById(productId);
         if (product == null) {
             System.out.println("Thông tin không chính xác , vui lòng nhập lại id sản phẩm: ");
            return;
+        }
+        Order order = findProductById1(productId);
+        if (order != null) {
+            System.out.println("Sản phẩm đã có trong giỏ hàng: ");
+            return;
         }
         System.out.println("Vui lòng nhập số lượng sản phẩm:");
         int quantity;
@@ -152,32 +168,133 @@ public class CartService {
                 break; // Thoát khỏi vòng lặp nếu giá trị được nhập vào là số nguyên hợp lệ
             } catch (InputMismatchException e) {
                 System.out.println("Giá trị bạn vừa nhập không phải là một số nguyên. Vui lòng nhập lại.");
+                scanner.nextLine();
             }
         }
 
         if (!checkQuantity(product, quantity)) {
-            System.out.println("Số lượng sản phẩm không đủ.");
+            System.out.println("Số lượng sản phẩm trong kho không đủ.");
             return;
         }
-        // Kiểm tra xem giỏ hàng có chứa sản phẩm này không
-        boolean found = false;
-        List<Order> existingOrders = new ArrayList<>(getOderFromJsonFile());
-        for (Order order : existingOrders) {
-            if (order.getProductId() == productId) {
-                //order.setQuantity(order.getQuantity() + quantity); // Cập nhật số lượng sản phẩm trong giỏ hàng
-                cart.addItem(new Order(order.getId(), productId, product.getName(), product.getAuthor(), quantity, product.getPrice()));
-                found = true;
+        generateOrderId();
+        // Nếu không tìm thấy sản phẩm trong giỏ hàng, thêm sản phẩm mới vào giỏ hàng
+        cart.addItem(new Order(AUTO_ID, productId, product.getName(), product.getAuthor(), quantity, product.getPrice()));
+
+        orders.clear();
+        orders.addAll(cart.getCartItems());
+        saveOrderToJsonFile();
+        System.out.println("Bạn đã thêm vào giỏ hàng thành công.");
+    }
+
+    public void updateQuantity() {
+        List<Order> allOrders = getOderFromJsonFile();
+        System.out.println("Vui lòng nhập id sản phẩm:");
+        int productId;
+        while (true) {
+            try {
+                productId = scanner.nextInt();
+                break; // Thoát khỏi vòng lặp nếu giá trị được nhập vào là số nguyên hợp lệ
+            } catch (InputMismatchException e) {
+                System.out.println("Giá trị bạn vừa nhập không phải là một số nguyên. Vui lòng nhập lại.");
+                scanner.nextLine();
             }
         }
-        if (!found) {
-            generateOrderId();
-            // Nếu không tìm thấy sản phẩm trong giỏ hàng, thêm sản phẩm mới vào giỏ hàng
-            cart.addItem(new Order(AUTO_ID, productId, product.getName(), product.getAuthor(), quantity, product.getPrice()));
+        Product product = findProductById(productId);
+        Order order = findProductById1(productId);
+        if (order == null) {
+            System.out.println("Sản phẩm đã chưa có trong giỏ hàng: ");
+            return;
         }
+        System.out.println("Vui lòng nhập số lượng sản phẩm:");
+        int quantity;
+        while (true) {
+            try {
+                quantity = scanner.nextInt();
+                scanner.nextLine();
+                if (quantity <= 0) {
+                    System.out.println("Số lượng sách phải là số dương và lớn hơn 0, vui lòng nhập lại ");
+                    continue;
+                }
+                break; // Thoát khỏi vòng lặp nếu giá trị được nhập vào là số nguyên hợp lệ
+            } catch (InputMismatchException e) {
+                System.out.println("Giá trị bạn vừa nhập không phải là một số nguyên. Vui lòng nhập lại.");
+                scanner.nextLine();
+            }
+        }
+
+        if (!checkQuantity(product, quantity)) {
+            System.out.println("Số lượng sản phẩm trong kho không đủ.");
+            return;
+        }
+        cart.addItem(new Order(order.getId(), productId, product.getName(), product.getAuthor(), quantity, product.getPrice()));
         // Cập nhật danh sách đơn hàng
         orders.clear();
         orders.addAll(cart.getCartItems());
         saveOrderToJsonFile();
         System.out.println("Bạn đã thêm vào giỏ hàng thành công.");
+    }
+
+    //Hiển thị các sản phẩm trong giỏ hàng
+    public void displayCartItems() {
+        List<Order> cartItems = getOderFromJsonFile(); // Lấy danh sách các mặt hàng từ tệp JSON
+        if (cartItems.isEmpty()) {
+            System.out.println("Giỏ hàng của bạn đang trống.");
+        } else {
+            System.out.println("Các sản phẩm trong giỏ hàng:");
+            System.out.printf("%-5s%-20s%-20s%-15s%-10s%-20s%n", "Id", "Tên", "Tác giả",  "Giá bán", "Số lượng", "Thành tiền");
+            System.out.println("--------------------------------------------------------------------------------------");
+            double total = 0;
+            for (Order order : cartItems) {
+                double subtotal = order.getQuantity() * order.getPrice(); // Tính thành tiền của mỗi sản phẩm
+                total += subtotal; // Tổng thành tiền của tất cả sản phẩm trong giỏ hàng
+                System.out.printf("%-5s%-20s%-20s%-15s%-10s%-20s%n", order.getId(), order.getName(), order.getAuthor(),
+                        order.getPrice(), order.getQuantity(), subtotal);
+            }
+            System.out.println("--------------------------------------------------------------------------------------");
+            System.out.println("Tổng tiền: " + total);
+        }
+    }
+    public List<Order>  AllCartItems() {
+        List<Order> cartItems = getOderFromJsonFile(); // Lấy danh sách các mặt hàng từ tệp JSON
+        if (cartItems.isEmpty()) {
+            System.out.println("Giỏ hàng của bạn đang trống.");
+        }
+        return cartItems;
+    }
+    public void saveOrderToJsonFile(List<Order> orders) {
+        try {
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            Writer writer = Files.newBufferedWriter(Paths.get(FILE_ORDER));
+            gson.toJson(orders, writer);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    //Xóa sản phẩm trong giỏ hàng
+    public void removeCartItem() {
+        List<Order> cartItems = new ArrayList<>(getOderFromJsonFile()); // Lấy danh sách các sản phẩm từ tệp JSON
+        System.out.println("Vui lòng nhập id sản phẩm cần xóa trong giỏ:");
+        int productId;
+        while (true) {
+            try {
+                productId = scanner.nextInt();
+                break; // Thoát khỏi vòng lặp nếu giá trị được nhập vào là số nguyên hợp lệ
+            } catch (InputMismatchException e) {
+                System.out.println("Giá trị bạn vừa nhập không phải là một số nguyên. Vui lòng nhập lại.");
+                scanner.nextLine();
+            }
+        }
+        // Kiểm tra xem sản phẩm cần xóa có tồn tại trong danh sách không
+        int index = getOderIndex(cartItems, productId);
+        if (index != -1) {
+            // Nếu sản phẩm tồn tại, xóa sản phẩm khỏi danh sách
+            cartItems.remove(index);
+            // Ghi danh sách đã chỉnh sửa vào file JSON
+            saveOrderToJsonFile(cartItems);
+            System.out.println("Đã xóa sản phẩm thành công.");
+        }else {
+            System.out.println("Không tìm thấy sản phẩm trong giỏ hàng có ID là " + productId);
+        }
     }
 }

@@ -3,18 +3,36 @@
     "id": 1,
     "email": "admin@gmail.com",
     "password": "Admin123456",
-    "name": "Hà",
+    "name": "Admin",
     "phone": "0123456789",
     "address": "Hn",
     "role": "ADMIN"
   },
   {
     "id": 2,
-    "email": "test@gmail.com",
+    "email": "ha@gmail.com",
     "password": "Ha123456",
-    "name": "Hà",
+    "name": "Trần Hà",
     "phone": "0912345678",
     "address": "Hn",
+    "role": "USER"
+  },
+  {
+    "id": 3,
+    "email": "test@gmail.com",
+    "password": "Test123456",
+    "name": "Test",
+    "phone": "0912345678",
+    "address": "Hà Nội",
+    "role": "USER"
+  },
+  {
+    "id": 5,
+    "email": "hoang@gmail.com",
+    "password": "Hoang123456",
+    "name": "Nguyễn Hoàng",
+    "phone": "0922222222",
+    "address": "Nam Định",
     "role": "USER"
   }
 ]

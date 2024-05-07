@@ -64,7 +64,7 @@ public class ProductService {
                     existingProducts.set(index, product);
                 } else {
                     // Nếu không tồn tại, thêm sản phẩm mới vào danh sách
-                    existingProducts.addAll(products);
+                    existingProducts.add(product);
                 }
             }
             Writer writer = Files.newBufferedWriter(Paths.get(FILE_PRODUCT));
@@ -117,6 +117,7 @@ public class ProductService {
                 break; // Thoát khỏi vòng lặp nếu giá trị được nhập vào là số nguyên hợp lệ
             } catch (InputMismatchException e) {
                 System.out.println("Giá trị bạn vừa nhập không phải là một số tự nhiên . Vui lòng nhập lại.");
+                scanner.nextLine();
             }
         }
         System.out.println("Mô tả về sách:");
@@ -134,6 +135,7 @@ public class ProductService {
                 break; // Thoát khỏi vòng lặp nếu giá trị được nhập vào là số nguyên hợp lệ
             } catch (InputMismatchException e) {
                 System.out.println("Giá trị bạn vừa nhập không phải là một số nguyên. Vui lòng nhập lại.");
+                scanner.nextLine();
             }
         }
         generateUserId();
@@ -164,6 +166,7 @@ public class ProductService {
                     break; // Thoát khỏi vòng lặp nếu giá trị được nhập vào là số nguyên hợp lệ
                 } catch (InputMismatchException e) {
                     System.out.println("Giá trị bạn vừa nhập không phải là một số nguyên. Vui lòng nhập lại.");
+                    scanner.nextLine();
                 }
             }
             Product product = findProductById(productId);
@@ -194,6 +197,7 @@ public class ProductService {
                     break;
                 } catch (InputMismatchException ex) {
                     System.out.print("Lựa chọn phải là một số nguyên, vui lòng nhập lại: ");
+                    scanner.nextLine();
                 }
             }
             switch (options) {
@@ -226,6 +230,7 @@ public class ProductService {
                             break; // Thoát khỏi vòng lặp nếu giá trị được nhập vào là số tự nhiên hợp lệ
                         } catch (InputMismatchException e) {
                             System.out.println("Giá trị bạn vừa nhập không phải là một số tự nhiên . Vui lòng nhập lại.");
+                            scanner.nextLine();
                         }
                     }
                     product.setPrice(newPrice);
@@ -248,6 +253,7 @@ public class ProductService {
                             break; // Thoát khỏi vòng lặp nếu giá trị được nhập vào là số nguyên hợp lệ
                         } catch (InputMismatchException e) {
                             System.out.println("Giá trị bạn vừa nhập không phải là một số nguyên. Vui lòng nhập lại.");
+                            scanner.nextLine();
                         }
                     }
                     product.setQuantity(newQuantity);
@@ -271,6 +277,7 @@ public class ProductService {
                 break; // Thoát khỏi vòng lặp nếu giá trị được nhập vào là số nguyên hợp lệ
             } catch (InputMismatchException e) {
                 System.out.println("Giá trị bạn vừa nhập không phải là một số nguyên. Vui lòng nhập lại.");
+                scanner.nextLine();
             }
         }
         Product product = findProductById(productId);
@@ -311,10 +318,57 @@ public class ProductService {
             else {
                 System.out.println("Danh sách Sản Phẩm:");
                 showBooks(productsAll);
-
             }
         } catch (NullPointerException e) {
             e.printStackTrace();
+        }
+    }
+
+    //Tìm kiếm theo tên sản phẩm
+    public void searchProductByName() {
+        List<Product> products = getProductsFromJsonFile();
+        List<Product> foundProducts = new ArrayList<>();
+        System.out.println("Vui lòng nhập tên sách:");
+        String name = scanner.nextLine();
+        for (Product product : products) {
+            if (product.getName().toLowerCase().contains(name.toLowerCase())) {
+                foundProducts.add(product);
+            }
+        }
+        if (foundProducts.isEmpty()) {
+            System.out.println("Không tìm thấy sản phẩm nào!");
+        } else {
+            System.out.println("Các sản phẩm được tìm thấy:");
+            showBooks(foundProducts);
+        }
+    }
+    //Hiển thị danh mục thể loại
+    public void displayCategories() {
+        List<Product> products = getProductsFromJsonFile();
+        Set<String> categories = new HashSet<>(); // Sử dụng Set để đảm bảo các thể loại là duy nhất
+        for (Product product : products) {
+            categories.add(product.getCategory());
+        }
+        System.out.println("Các thể loại sản phẩm có sẵn:");
+        for (String category : categories) {
+            System.out.println(category);
+        }
+    }
+    public void searchProductByCategory() {
+        List<Product> products = getProductsFromJsonFile();
+        List<Product> foundProducts = new ArrayList<>();
+        System.out.println("Vui lòng nhập thể loại:");
+        String category = scanner.nextLine();
+        for (Product product : products) {
+            if (product.getCategory().equalsIgnoreCase(category)) {
+                foundProducts.add(product);
+            }
+        }
+        if (foundProducts.isEmpty()) {
+            System.out.println("Không tìm thấy sản phẩm nào!");
+        } else {
+            System.out.println("Các sản phẩm được tìm thấy theo thể loại:");
+            showBooks(foundProducts);
         }
     }
 }
