@@ -24,13 +24,33 @@ public class UserService {
     private static int AUTO_ID;
 
     public User createAccount( ) {
+        List<User> existingUsers = getUsersFromJsonFile();
         generateUserId();
-        System.out.println("Vui lòng nhập email:");
-        String email = scanner.nextLine();
-        while (!email.matches(Regex.EMAIL_REGEX)) {
-            System.out.println("Email không đúng định dạng vui lòng nhập lại");
+//        System.out.println("Vui lòng nhập email:");
+//        String email = scanner.nextLine();
+//        while (!email.matches(Regex.EMAIL_REGEX)) {
+//            System.out.println("Email không đúng định dạng vui lòng nhập lại");
+//            email = scanner.nextLine();
+//
+//        }
+        String email;
+        boolean emailExists;
+        do {
+            System.out.println("Vui lòng nhập email:");
             email = scanner.nextLine();
-        }
+            emailExists = false; // Khởi tạo biến kiểm tra lại thành false
+            if (!email.matches(Regex.EMAIL_REGEX)) {
+                System.out.println("Email không đúng định dạng vui lòng nhập lại");
+                continue; // Tiếp tục vòng lặp nếu email không đúng định dạng
+            }
+            for (User user : existingUsers) {
+                if (user.getEmail().equals(email)) {
+                    emailExists = true;
+                    System.out.println("Email đã tồn tại trong hệ thống. Vui lòng nhập lại.");
+                    break; // Thoát vòng lặp nếu email đã tồn tại
+                }
+            }
+        } while (!email.matches(Regex.EMAIL_REGEX) || emailExists); // Kiểm tra lại email đúng định dạng và không tồn tại trong hệ thống
         System.out.println("Vui lòng nhập mật khẩu (6 -> 20 ký tự cả chữ thường, chữ hoa và cả số):");
         String password = scanner.nextLine();
         while (!password.matches(Regex.PASSWORD_REGEX)) {

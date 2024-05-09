@@ -156,6 +156,7 @@ public class ProductService {
         return null;
     }
 
+    //Sửa sản phẩm
     public void updateProduct() {
         while (true) {
             System.out.println("Mời bạn nhập ID của sách : ");
@@ -268,11 +269,13 @@ public class ProductService {
             break;
         }
     }
+    //Cập nhật số lượng cho sản phẩm
     public void updateQuantityProduct(Product product, int quantity) {
             product.setQuantity(quantity);
             products.add(product);
             saveProductsToJsonFile();
     }
+    //Xóa sản phẩm theo id
     public void deleteProduct() {
         System.out.println("Mời bạn nhập ID của sản phẩm cần xóa: ");
         int productId;
@@ -359,6 +362,7 @@ public class ProductService {
             System.out.println(category);
         }
     }
+    //Tìm kiếm sản phẩm theo thể loại
     public void searchProductByCategory() {
         List<Product> products = getProductsFromJsonFile();
         List<Product> foundProducts = new ArrayList<>();
@@ -373,6 +377,25 @@ public class ProductService {
             System.out.println("Không tìm thấy sản phẩm nào!");
         } else {
             System.out.println("Các sản phẩm được tìm thấy theo thể loại:");
+            showBooks(foundProducts);
+        }
+    }
+    //Tìm kiếm sản phẩm theo số lượng
+    public void searchProductByQuantity() {
+        List<Product> products = getProductsFromJsonFile();
+        List<Product> foundProducts = new ArrayList<>();
+        System.out.println("Vui lòng nhập số lượng:");
+        int quantity = scanner.nextInt();
+        scanner.nextLine();
+        for (Product product : products) {
+            if (product.getQuantity() <= quantity) {
+                foundProducts.add(product);
+            }
+        }
+        if (foundProducts.isEmpty()) {
+            System.out.println("Không tìm thấy sản phẩm nào số lượng dưới: " + quantity);
+        } else {
+            System.out.println("Các sản phẩm có số lượng dưới: " + quantity);
             showBooks(foundProducts);
         }
     }

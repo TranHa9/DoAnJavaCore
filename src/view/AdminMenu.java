@@ -76,14 +76,15 @@ public class AdminMenu {
             System.out.println("1. Thêm sản phẩm");
             System.out.println("2. Sửa sản phẩm");
             System.out.println("3. Xóa sản phẩm");
-            System.out.println("4. Quay lai");
+            System.out.println("4. Tìm kiếm sản phẩm theo số lượng:");
+            System.out.println("5. Quay lai");
             System.out.print("Mời bạn chọn chức năng: ");
             while (!isQuit) {
                 try {
                     option = scanner.nextInt();
                     scanner.nextLine();
-                    if (option < 1 || option > 4) {
-                        System.out.println("Chức năng là số từ 1 tới 4, vui lòng nhập lại: ");
+                    if (option < 1 || option > 5) {
+                        System.out.println("Chức năng là số từ 1 tới 5, vui lòng nhập lại: ");
                         continue;
                     }
                     break;
@@ -106,9 +107,11 @@ public class AdminMenu {
                     productService.showProductAll();
                     break;
                 case 4:
+                    productService.searchProductByQuantity();
+                    return;
+                case 5:
                     isQuit = true;
                     return;
-
             }
         }
     }
