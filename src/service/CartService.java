@@ -16,11 +16,11 @@ import java.util.*;
 
 public class CartService {
     private final Scanner scanner = new Scanner(System.in);
-    //private final List<Product> products = new ArrayList<>();
     private final String FILE_PRODUCT = "products.json";
     private final String FILE_ORDER = "order.json";
     private final Cart cart = new Cart();
     private final List<Order> orders = new ArrayList<>();
+    private final ProductService productService = new ProductService();
     private static int AUTO_ID;
 
     public CartService() {
@@ -176,6 +176,11 @@ public class CartService {
             System.out.println("Số lượng sản phẩm trong kho không đủ.");
             return;
         }
+        // Trừ số lượng sản phẩm trong kho sau khi kiểm tra số lượng sản phẩm trong kho đủ
+        int newQuantity = product.getQuantity() - quantity;
+        // Cập nhật sản phẩm trong file JSON
+        productService.updateQuantityProduct(product, newQuantity);
+
         generateOrderId();
         // Nếu không tìm thấy sản phẩm trong giỏ hàng, thêm sản phẩm mới vào giỏ hàng
         cart.addItem(new Order(AUTO_ID, productId, product.getName(), product.getAuthor(), quantity, product.getPrice()));
@@ -187,7 +192,6 @@ public class CartService {
     }
 
     public void updateQuantity() {
-        List<Order> allOrders = getOderFromJsonFile();
         System.out.println("Vui lòng nhập id sản phẩm:");
         int productId;
         while (true) {
@@ -226,6 +230,12 @@ public class CartService {
             System.out.println("Số lượng sản phẩm trong kho không đủ.");
             return;
         }
+
+        // Trừ số lượng sản phẩm trong kho sau khi kiểm tra số lượng sản phẩm trong kho đủ
+        int newQuantity = (product.getQuantity() + order.getQuantity()) - quantity;
+        // Cập nhật sản phẩm trong file JSON
+        productService.updateQuantityProduct(product, newQuantity);
+
         cart.addItem(new Order(order.getId(), productId, product.getName(), product.getAuthor(), quantity, product.getPrice()));
         // Cập nhật danh sách đơn hàng
         orders.clear();
@@ -241,13 +251,13 @@ public class CartService {
             System.out.println("Giỏ hàng của bạn đang trống.");
         } else {
             System.out.println("Các sản phẩm trong giỏ hàng:");
-            System.out.printf("%-5s%-20s%-20s%-15s%-10s%-20s%n", "Id", "Tên", "Tác giả",  "Giá bán", "Số lượng", "Thành tiền");
+            System.out.printf("%-5s%-10s%-20s%-20s%-15s%-10s%-20s%n", "Id","Id Sp", "Tên", "Tác giả",  "Giá bán", "Số lượng", "Thành tiền");
             System.out.println("--------------------------------------------------------------------------------------");
             double total = 0;
             for (Order order : cartItems) {
                 double subtotal = order.getQuantity() * order.getPrice(); // Tính thành tiền của mỗi sản phẩm
                 total += subtotal; // Tổng thành tiền của tất cả sản phẩm trong giỏ hàng
-                System.out.printf("%-5s%-20s%-20s%-15s%-10s%-20s%n", order.getId(), order.getName(), order.getAuthor(),
+                System.out.printf("%-5s%-10s%-20s%-20s%-15s%-10s%-20s%n", order.getId(),order.getProductId(), order.getName(), order.getAuthor(),
                         order.getPrice(), order.getQuantity(), subtotal);
             }
             System.out.println("--------------------------------------------------------------------------------------");

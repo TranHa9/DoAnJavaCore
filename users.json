@@ -22,7 +22,7 @@
     "email": "test@gmail.com",
     "password": "Test123456",
     "name": "Test",
-    "phone": "0912345678",
+    "phone": "0944444444",
     "address": "Hà Nội",
     "role": "USER"
   },
@@ -33,6 +33,15 @@
     "name": "Nguyễn Hoàng",
     "phone": "0922222222",
     "address": "Nam Định",
+    "role": "USER"
+  },
+  {
+    "id": 6,
+    "email": "nhung@gmail.com",
+    "password": "Nhung123456",
+    "name": "Nhung",
+    "phone": "0933333333",
+    "address": "Thanh Hóa",
     "role": "USER"
   }
 ]

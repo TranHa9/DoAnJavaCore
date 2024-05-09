@@ -5,19 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6c2caa20-ad41-4aa6-be32-4dcd9021c5d3" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/service/ReportService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/carts.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/order.json" beforeDir="false" afterPath="$PROJECT_DIR$/order.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/orderItem.json" beforeDir="false" afterPath="$PROJECT_DIR$/orderItem.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/products.json" beforeDir="false" afterPath="$PROJECT_DIR$/products.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/OrderItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/OrderItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/service/CartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/CartService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/service/OrderSerivce.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/OrderSerivce.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/ProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/AdminMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/AdminMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Menu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/UserMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/UserMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/users.json" beforeDir="false" afterPath="$PROJECT_DIR$/users.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -53,7 +51,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/project-library-management-master",
+    "last_opened_file_path": "D:/project-java-core-final-main/Do-An-Java-Core",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",

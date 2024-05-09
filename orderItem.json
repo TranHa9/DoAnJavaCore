@@ -26,9 +26,9 @@
         "price": 20000.0
       }
     ],
-    "orderTime": "07/05/24 12:42",
+    "orderTime": "07/05/2024 12:42",
     "intoMoney": 52000.0,
-    "status": "Đang giao"
+    "status": "Đã giao hàng"
   },
   {
     "id": 2,
@@ -49,7 +49,7 @@
         "price": 12000.0
       }
     ],
-    "orderTime": "07/05/24 18:02",
+    "orderTime": "07/05/2024 18:02",
     "intoMoney": 12000.0,
     "status": "Đã hủy"
   },
@@ -72,8 +72,62 @@
         "price": 20000.0
       }
     ],
-    "orderTime": "07/05/24 18:12",
+    "orderTime": "07/05/2024 18:12",
     "intoMoney": 20000.0,
+    "status": "Đã giao hàng"
+  },
+  {
+    "id": 4,
+    "user": {
+      "id": 3,
+      "email": "test@gmail.com",
+      "name": "Test",
+      "phone": "0912345678",
+      "address": "Hà Nội"
+    },
+    "orders": [
+      {
+        "id": 1,
+        "productId": 4,
+        "name": "Pháp y tần Minh",
+        "Author": "abc",
+        "quantity": 2,
+        "price": 70000.0
+      },
+      {
+        "id": 2,
+        "productId": 2,
+        "name": "Conan",
+        "Author": "abc",
+        "quantity": 4,
+        "price": 20000.0
+      }
+    ],
+    "orderTime": "09/05/2024 17:15",
+    "intoMoney": 220000.0,
+    "status": "Đã giao hàng"
+  },
+  {
+    "id": 5,
+    "user": {
+      "id": 3,
+      "email": "test@gmail.com",
+      "name": "Test",
+      "phone": "0912345678",
+      "address": "Hà Nội"
+    },
+    "orders": [
+      {
+        "id": 1,
+        "productId": 7,
+        "name": "Giari tích",
+        "Author": "abc",
+        "quantity": 2,
+        "price": 20000.0
+      }
+    ],
+    "orderTime": "09/05/2024 17:26",
+    "intoMoney": 40000.0,
     "status": "Chờ xác nhận"
   }
 ]

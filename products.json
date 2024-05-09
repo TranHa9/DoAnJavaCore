@@ -24,7 +24,7 @@
     "author": "Cố Mạn",
     "price": 50000.0,
     "description": "Sách hay mua liền tay",
-    "quantity": 20
+    "quantity": 17
   },
   {
     "Id": 4,
@@ -33,7 +33,7 @@
     "author": "abc",
     "price": 70000.0,
     "description": "Phá án hấp dẫn",
-    "quantity": 40
+    "quantity": 39
   },
   {
     "Id": 7,

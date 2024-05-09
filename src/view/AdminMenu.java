@@ -1,9 +1,6 @@
 package view;
 
-import service.CartService;
-import service.OrderSerivce;
-import service.ProductService;
-import service.UserService;
+import service.*;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -11,8 +8,8 @@ import java.util.Scanner;
 public class AdminMenu {
     private final ProductService productService = new ProductService();
     private final UserService userService = new UserService();
-    private final CartService cartService = new CartService();
     private final OrderSerivce orderSerivce = new OrderSerivce();
+    private final ReportService reportService = new ReportService();
     private final Scanner scanner = new Scanner(System.in);
     public void showAdminMenu() {
         int option = 0;
@@ -61,9 +58,9 @@ public class AdminMenu {
                     userService.showAllUser();
                     showUserManagementMenu();
                     break;
-//                case 5:
-//                    showSalesReport();
-//                    break;
+                case 5:
+                    showSalesReport();
+                    break;
                 case 6:
                     isQuit = true;
                     return;
@@ -199,6 +196,50 @@ public class AdminMenu {
                     userService.showAllUser();
                     break;
                 case 4:
+                    isQuit = true;
+                    return;
+
+            }
+        }
+    }
+
+    public void showSalesReport() {
+        int option = 0;
+        boolean isQuit = false;
+        while (!isQuit) {
+            System.out.println("1. Xem doanh thu theo ngày:");
+            System.out.println("2. Xem doanh thu theo tháng:");
+            System.out.println("3. Quay lai");
+            System.out.print("Mời bạn chọn chức năng: ");
+            while (!isQuit) {
+                try {
+                    option = new Scanner(System.in).nextInt();
+                    if (option < 1 || option > 3) {
+                        System.out.println("Chức năng là số từ 1 tới 3, vui lòng nhập lại: ");
+                        continue;
+                    }
+                    break;
+                } catch (InputMismatchException ex) {
+                    System.out.print("Lựa chọn phải là một số nguyên, vui lòng nhập lại: ");
+                    scanner.nextLine();
+                }
+            }
+            switch (option) {
+                case 1:
+                    System.out.println("Vui lòng nhập ngày (ví dụ: 09/05/2024):");
+                    String dateStr = scanner.nextLine();
+                    reportService.displayDailyRevenue(dateStr);
+                    break;
+                case 2:
+                    System.out.println("Vui lòng nhập tháng (ví dụ: 05):");
+                    int month = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.println("Vui lòng nhập năm (ví dụ: 2024):");
+                    int year = scanner.nextInt();
+                    scanner.nextLine();
+                    reportService.displayMonthlyRevenue(month,year);
+                    break;
+                case 3:
                     isQuit = true;
                     return;
 

@@ -268,6 +268,11 @@ public class ProductService {
             break;
         }
     }
+    public void updateQuantityProduct(Product product, int quantity) {
+            product.setQuantity(quantity);
+            products.add(product);
+            saveProductsToJsonFile();
+    }
     public void deleteProduct() {
         System.out.println("Mời bạn nhập ID của sản phẩm cần xóa: ");
         int productId;

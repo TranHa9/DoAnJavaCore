@@ -34,7 +34,7 @@ public class OrderSerivce {
         AUTO_ID = maxId + 1;
     }
 
-    private List<OrderItem> getOrderItemsFromJsonFile() {
+    public List<OrderItem> getOrderItemsFromJsonFile() {
         try {
             Gson gson = new Gson();
             Reader reader = Files.newBufferedReader(Paths.get(FILE_ORDER_ITEM));
@@ -93,7 +93,7 @@ public class OrderSerivce {
         // Lấy ngày giờ hiện tại
         LocalDateTime currentDateTime = LocalDateTime.now();
         // Tạo định dạng cho ngày giờ
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         // Format ngày giờ theo định dạng
         String dateTime = currentDateTime.format(formatter);
         newOrder.setOrderTime(dateTime);
