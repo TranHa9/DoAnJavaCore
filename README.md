@@ -2,8 +2,8 @@
 
 ## I. GIỚI THIỆU
   Phần mềm quản lý bán sách online giúp cho các khách hàng có thể mua sắm online tiện lợi mà không cần phải đến cửa hàng.
-  Khách hàng có thể tìm kiếm sách, thực hiện thêm sách muốn mua vào giỏ hàng, và có thể thực hiện mua hàng. khách hàng có thể huỷ đơn hàng.
-  Phần mềm cũng giúp cho các shop quản lý sách, quản lý các đơn hàng và thực hiện báo cáo doanh thu.
+  Khách hàng có thể tìm kiếm sách, thực hiện thêm sách muốn mua vào giỏ hàng và đặt hàng. 
+  Phần mềm cũng giúp cho các shop quản lý sách, quản lý các đơn hàng và thực hiện báo cáo doanh thu một cách hiểu quả.
 ## II. CHỨC NĂNG:
 ### Đăng ký, đăng nhập
 - Người dùng mới có thể đăng ký tài khoản.
