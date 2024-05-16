@@ -11,7 +11,6 @@ public class Menu {
     private final UserService userService = new UserService();
     private final AdminMenu adminMenu = new AdminMenu();
     private final UserMenu userMenu = new UserMenu();
-    private final OrderSerivce orderSerivce = new OrderSerivce();
     private final Scanner scanner = new Scanner(System.in);
     public void showMenu() {
         int option = 0;
