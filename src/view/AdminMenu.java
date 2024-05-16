@@ -108,7 +108,7 @@ public class AdminMenu {
                     break;
                 case 4:
                     productService.searchProductByQuantity();
-                    return;
+                    break;
                 case 5:
                     isQuit = true;
                     return;

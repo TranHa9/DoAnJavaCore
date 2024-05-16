@@ -12,6 +12,7 @@
 ### 1. Quản lý sách
 - Thêm sách mới vào hệ thống.
 - Cập nhật thông tin sách (tên sách, tác giả, thể loại, giá cả, số lượng).
+- Tìm sách theo số lượng tồn kho.
 - Xóa sách khỏi hệ thống.
 ### 2. Quản lý người dùng
 - Thêm người dùng mới.
